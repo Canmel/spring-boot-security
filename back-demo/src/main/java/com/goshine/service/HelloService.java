@@ -1,0 +1,6 @@
+package com.goshine.service;
+
+public interface HelloService {
+	String greeting(String name);
+}
+ 
