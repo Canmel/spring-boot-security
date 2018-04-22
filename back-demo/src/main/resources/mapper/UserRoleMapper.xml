@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goshine.mapper.UserRoleMapper">
+  <resultMap id="BaseResultMap" type="dto.UserRole">
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <id column="role_id" jdbcType="BIGINT" property="roleId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from user_role
+    where user_id = #{userId,jdbcType=BIGINT}
+      and role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="dto.UserRole">
+    insert into user_role (user_id, role_id)
+    values (#{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select user_id, role_id
+    from user_role
+  </select>
+  <resultMap id="BaseResultMap" type="dto.UserRole">
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <id column="role_id" jdbcType="BIGINT" property="roleId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from user_role
+    where user_id = #{userId,jdbcType=BIGINT}
+      and role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="dto.UserRole">
+    insert into user_role (user_id, role_id)
+    values (#{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select user_id, role_id
+    from user_role
+  </select>
+  <resultMap id="BaseResultMap" type="dto.UserRole">
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <id column="role_id" jdbcType="BIGINT" property="roleId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from user_role
+    where user_id = #{userId,jdbcType=BIGINT}
+      and role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="dto.UserRole">
+    insert into user_role (user_id, role_id)
+    values (#{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select user_id, role_id
+    from user_role
+  </select>
+  <resultMap id="BaseResultMap" type="dto.UserRole">
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <id column="role_id" jdbcType="BIGINT" property="roleId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from user_role
+    where user_id = #{userId,jdbcType=BIGINT}
+      and role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="dto.UserRole">
+    insert into user_role (user_id, role_id)
+    values (#{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select user_id, role_id
+    from user_role
+  </select>
+  <resultMap id="BaseResultMap" type="dto.UserRole">
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <id column="role_id" jdbcType="BIGINT" property="roleId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from user_role
+    where user_id = #{userId,jdbcType=BIGINT}
+      and role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="dto.UserRole">
+    insert into user_role (user_id, role_id)
+    values (#{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select user_id, role_id
+    from user_role
+  </select>
+</mapper>

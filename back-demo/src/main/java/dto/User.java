@@ -2,64 +2,104 @@ package dto;
 
 import java.util.Date;
 
-import javax.validation.constraints.Past;
+public class User extends BaseModel{
+    private Long id;
 
-import org.hibernate.validator.constraints.NotBlank;
+    private String nickname;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.goshine.validator.MyConstraint;
+    private String email;
 
-public class User {
-	public interface UserSimpleView {
-	};
+    private String mobile;
 
-	public interface UserDetailView extends UserSimpleView {
-	};
+    private String username;
 
-	private String id;
-	
-	@MyConstraint(message = "这是一个测试")
-	private String username;
+    private String password;
 
-	@NotBlank(message = "密码不能为空")
-	private String password;
+    private Integer status;
 
-	@Past(message = "生日必须是一个过去的时间")
-	private Date birthday;
+    private String description;
 
-	@JsonView(UserSimpleView.class)
-	public String getUsername() {
-		return username;
-	}
+    private Date createdAt;
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    private Date updatedAt;
 
-	@JsonView(UserDetailView.class)
-	public String getPassword() {
-		return password;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	@JsonView(User.UserSimpleView.class)
-	public String getId() {
-		return id;
-	}
+    public String getNickname() {
+        return nickname;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
-	@JsonView(User.UserSimpleView.class)
-	public Date getBirthday() {
-		return birthday;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
