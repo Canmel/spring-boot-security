@@ -1,53 +1,48 @@
 package com.goshine.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
+import com.github.pagehelper.PageInfo;
+import com.goshine.core.base.R;
+import com.goshine.service.BaseService;
+import com.goshine.service.UserService;
+import com.goshine.web.enums.UserStatus;
+import dto.PageQuery;
+import dto.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
-import dto.User;
 import exceptions.UserNotExistException;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/api/users")
+public class UserController extends BaseController {
+
+	@Autowired
+	public UserService userService;
 
 	@GetMapping("/me")
 	public Object getCurrentUser(@AuthenticationPrincipal UserDetails user) {
 		return user;
 	}
+
+	@GetMapping("/current")
+	public User getUserDetail(@AuthenticationPrincipal UserDetails user) {
+		return userService.loadUserByUserName(user.getUsername());
+	}
 	
 	@GetMapping
-	@JsonView(User.UserSimpleView.class)
-	public List<User> query(@RequestParam(required = false) String username,
-			@PageableDefault(page = 1, size = 10, sort = "id,asc") Pageable pageable) {
-		List<User> users = new ArrayList<User>();
-		users.add(new User());
-		users.add(new User());
-		users.add(new User());
-		return users;
+	@ResponseBody
+	public R query(User user) {
+		PageInfo pageInfo = super.query(user);
+		return R.ok().page(pageInfo);
 	}
 
 	@GetMapping("/{id:\\d+}")
-	@JsonView(User.UserDetailView.class)
 	public User getInfo(@PathVariable(name = "id") String id) {
 		User user = new User();
 		user.setUsername("tom");
@@ -56,12 +51,13 @@ public class UserController {
 	}
 
 	@PostMapping
-	public User create(@Valid @RequestBody User user, BindingResult errors) {
+	@ResponseBody
+	public R create(@Valid User user, BindingResult errors) {
 		if(errors.hasErrors()) {
 			errors.getAllErrors().stream().forEach(error -> System.out.println(error.getDefaultMessage()));
 		}
-		user.setId("1"); 
-		return user;
+		user.setId(1l);
+		return R.ok().put("msg", "保存用户成功");
 	}
 	
 	@PutMapping("/{id:\\d+}")
@@ -87,5 +83,10 @@ public class UserController {
 	@GetMapping("/error/{id:\\d+}") 
 	public void toError(@PathVariable String id) {
 		throw new UserNotExistException(id);
+	}
+
+	@Override
+	public BaseService getService() {
+		return userService;
 	}
 }
