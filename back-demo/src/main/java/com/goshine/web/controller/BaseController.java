@@ -13,6 +13,18 @@ public abstract class BaseController {
         return getService().query(modal);
     }
 
+    public boolean create(BaseModel model) {
+        return getService().create(model);
+    }
+
+    public BaseModel details(BaseModel model) {
+        return getService().details(model);
+    }
+
+    public boolean update(BaseModel model) {
+        return getService().update(model);
+    }
+
     public abstract BaseService getService();
 
 }

@@ -52,6 +52,11 @@ public class R extends HashMap<String, Object> {
 		return this;
 	}
 
+	public R msg(String msg) {
+		super.put("msg", msg);
+		return this;
+	}
+
 	public static R page(long total, Object object) {
 		R r = new R();
 		r.put("totalProperty", total);
@@ -64,6 +69,12 @@ public class R extends HashMap<String, Object> {
 		r.put("totalProperty", pageInfo.getTotal());
 		r.put("pageNum", pageInfo.getPageNum());
 		r.put("root", pageInfo.getList());
+		return r;
+	}
+
+	public static R model(Object obje) {
+		R r = new R();
+		r.put("obj", obje);
 		return r;
 	}
 }

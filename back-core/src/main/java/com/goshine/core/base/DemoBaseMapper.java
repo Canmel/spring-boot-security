@@ -1,4 +1,4 @@
-package com.goshine.mapper;
+package com.goshine.core.base;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;

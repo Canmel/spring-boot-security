@@ -11,6 +11,10 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 		<relativePath>../back</relativePath>
 	</parent>
 
+	<properties>
+		<tk.mybatis.version>1.1.7</tk.mybatis.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -66,6 +70,12 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
 			<version>1.2.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>tk.mybatis</groupId>
+			<artifactId>mapper-spring-boot-starter</artifactId>
+			<version>${tk.mybatis.version}</version>
 		</dependency>
 	</dependencies>
 </project>

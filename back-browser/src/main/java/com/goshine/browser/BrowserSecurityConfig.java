@@ -24,69 +24,70 @@ import com.goshine.core.validate.code.ValidateCodeFilter;
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private SecurityProperties securityProperties; 
-	
-	@Autowired
-	private AuthenticationSuccessHandler customerAuthenticationSuccessHandler;
-	
-	@Autowired
-	private AuthenticationFailureHandler customerAuthenticationFailHandler;
-	
-	@Autowired
-	private DataSource dataSource;
-	
-	@Autowired
-	private UserDetailsService userDetailsService;
-	
-	@Autowired
-	private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
-	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	
-	@Bean
-	public PersistentTokenRepository persistentTokenRepository() {
-		JdbcTokenRepositoryImpl tokenRepositoryImpl = new JdbcTokenRepositoryImpl();
-		tokenRepositoryImpl.setDataSource(dataSource);
-//		tokenRepositoryImpl.setCreateTableOnStartup(true);
-		return tokenRepositoryImpl;
-	}
+    @Autowired
+    private SecurityProperties securityProperties;
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
-		validateCodeFilter.setAuthenticationFailureHandler(customerAuthenticationFailHandler);
-		validateCodeFilter.setSecurityProperties(securityProperties);
-		validateCodeFilter.afterPropertiesSet();
-		
-		SmsCodeFilter smsCodeFilter = new SmsCodeFilter();
-		smsCodeFilter.setAuthenticationFailureHandler(customerAuthenticationFailHandler);
-		smsCodeFilter.setSecurityProperties(securityProperties);
-		smsCodeFilter.afterPropertiesSet();
-		
-		http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-		.addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
-		.formLogin()
-			.loginPage("/anth/require")
-			.loginProcessingUrl("/auth/login")
-			.successHandler(customerAuthenticationSuccessHandler)
-			.failureHandler(customerAuthenticationFailHandler)
-		.and()
-		.rememberMe()
-			.tokenRepository(persistentTokenRepository())
-			.tokenValiditySeconds(securityProperties.getBrowser().getRemenberMeSeconds())
-			.userDetailsService(userDetailsService)
-		.and()
-		.authorizeRequests()
-		.antMatchers("/anth/require", securityProperties.getBrowser().getLoginPage(), "/code/image", "/code/sms").permitAll()
-		.anyRequest()
-		.authenticated()
-		.and()
-		.csrf().disable()
-		.apply(smsCodeAuthenticationSecurityConfig);
-	}
+    @Autowired
+    private AuthenticationSuccessHandler customerAuthenticationSuccessHandler;
+
+    @Autowired
+    private AuthenticationFailureHandler customerAuthenticationFailHandler;
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepositoryImpl = new JdbcTokenRepositoryImpl();
+        tokenRepositoryImpl.setDataSource(dataSource);
+//		tokenRepositoryImpl.setCreateTableOnStartup(true);
+        return tokenRepositoryImpl;
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
+        validateCodeFilter.setAuthenticationFailureHandler(customerAuthenticationFailHandler);
+        validateCodeFilter.setSecurityProperties(securityProperties);
+        validateCodeFilter.afterPropertiesSet();
+
+        SmsCodeFilter smsCodeFilter = new SmsCodeFilter();
+        smsCodeFilter.setAuthenticationFailureHandler(customerAuthenticationFailHandler);
+        smsCodeFilter.setSecurityProperties(securityProperties);
+        smsCodeFilter.afterPropertiesSet();
+
+        http
+//                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                .formLogin()
+                .loginPage("/anth/require")
+                .loginProcessingUrl("/auth/login")
+                .successHandler(customerAuthenticationSuccessHandler)
+                .failureHandler(customerAuthenticationFailHandler)
+                .and()
+                .rememberMe()
+                .tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(securityProperties.getBrowser().getRemenberMeSeconds())
+                .userDetailsService(userDetailsService)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/anth/require", securityProperties.getBrowser().getLoginPage(), "/code/image", "/code/sms").permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .csrf().disable()
+                .apply(smsCodeAuthenticationSecurityConfig);
+    }
 
 }

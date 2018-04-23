@@ -1,21 +1,14 @@
 package com.goshine.mapper;
 
+import com.goshine.core.base.DemoBaseMapper;
 import dto.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Mapper
 @Repository
-public interface UserMapper extends DemoBaseMapper<User>{
-    int deleteByPrimaryKey(Long id);
+@Mapper
+public interface UserMapper extends DemoBaseMapper<User> {
 
-    int insert(User record);
-
-    User selectByPrimaryKey(Long id);
-
-    List<User> selectAll();
-
-    int updateByPrimaryKey(User record);
 }
