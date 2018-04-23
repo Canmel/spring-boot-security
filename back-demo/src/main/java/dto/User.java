@@ -2,9 +2,7 @@ package dto;
 
 import java.util.Date;
 
-public class User extends BaseModel{
-    private Long id;
-
+public class User extends  BaseModel{
     private String nickname;
 
     private String email;
@@ -22,14 +20,6 @@ public class User extends BaseModel{
     private Date createdAt;
 
     private Date updatedAt;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNickname() {
         return nickname;

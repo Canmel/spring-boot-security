@@ -2,12 +2,11 @@ package com.goshine.service.serviceImpl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.goshine.core.base.R;
-import com.goshine.mapper.DemoBaseMapper;
+import com.goshine.core.base.DemoBaseMapper;
 import com.goshine.service.BaseService;
 import dto.BaseModel;
 import dto.PageQuery;
-import org.springframework.ui.Model;
+import dto.User;
 import org.springframework.util.ObjectUtils;
 import tk.mybatis.mapper.entity.Example;
 
@@ -29,11 +28,39 @@ public abstract class BaseServiceImpl implements BaseService {
         return pageInfo;
     }
 
+    @Override
+    public boolean create(BaseModel model) {
+        boolean flag = false;
+        int result = getMapper().insert(model);
+        if(result > 0){
+            flag = true;
+        }
+        return flag;
+    }
+
+    @Override
+    public BaseModel details(BaseModel model) {
+        return (BaseModel) getMapper().selectOne(model);
+    }
+
+    @Override
+    public boolean update(BaseModel model) {
+        boolean flag = false;
+        Example example = new Example(User.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("id", model.getId());
+        int result = getMapper().updateByExampleSelective(model, example);
+        if(result > 0){
+            flag = true;
+        }
+        return flag;
+    }
+
     /**
      * 构建Example
      * 循环遍历model的属性并获取，属性不为空加入example
      *
-     * @param
+     * @param model
      * @return
      */
     public Example.Criteria buildExample(BaseModel model, Example.Criteria criteria) {

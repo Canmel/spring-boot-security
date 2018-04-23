@@ -4,11 +4,11 @@ import dto.Role;
 import java.util.List;
 
 public interface RoleMapper {
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Role record);
 
-    Role selectByPrimaryKey(Long id);
+    Role selectByPrimaryKey(Integer id);
 
     List<Role> selectAll();
 

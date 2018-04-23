@@ -3,7 +3,7 @@ package dto;
 import java.util.Date;
 
 public class Role {
-    private Long id;
+    private Integer id;
 
     private String name;
 
@@ -13,11 +13,11 @@ public class Role {
 
     private Date updatedAt;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

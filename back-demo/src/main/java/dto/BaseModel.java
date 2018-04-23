@@ -13,6 +13,16 @@ public class BaseModel {
     @Transient
     public Integer pageSize;
 
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public BaseModel(Integer currentPage, Integer pageSize) {
         this.currentPage = currentPage;
         this.pageSize = pageSize;

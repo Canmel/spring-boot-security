@@ -1,23 +1,23 @@
 package dto;
 
 public class UserRole {
-    private Long userId;
+    private Integer userId;
 
-    private Long roleId;
+    private Integer roleId;
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public Long getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 }
