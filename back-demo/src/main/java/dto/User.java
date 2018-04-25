@@ -2,7 +2,8 @@ package dto;
 
 import java.util.Date;
 
-public class User extends  BaseModel{
+public class User extends BaseModel {
+
     private String nickname;
 
     private String email;
@@ -12,8 +13,6 @@ public class User extends  BaseModel{
     private String username;
 
     private String password;
-
-    private Integer status;
 
     private String description;
 
@@ -59,14 +58,6 @@ public class User extends  BaseModel{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public String getDescription() {

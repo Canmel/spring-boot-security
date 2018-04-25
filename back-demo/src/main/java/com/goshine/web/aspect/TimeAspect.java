@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TimeAspect {
 
-	@Around("execution(* com.goshine.web.controller.UserController.*(..))")
+	@Around("execution(* com.goshine.web.controller.RoleController.*(..))")
 	public Object handleControllerMethod(ProceedingJoinPoint pjp) throws Throwable {
 		System.out.println("time aspect start");
 		Object[] args = pjp.getArgs();

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.goshine.core.base.DemoBaseMapper;
 import com.goshine.service.BaseService;
+import com.goshine.web.enums.BaseStatus;
 import dto.BaseModel;
 import dto.PageQuery;
 import dto.User;
@@ -13,7 +14,9 @@ import tk.mybatis.mapper.entity.Example;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class BaseServiceImpl implements BaseService {
 
@@ -32,7 +35,7 @@ public abstract class BaseServiceImpl implements BaseService {
     public boolean create(BaseModel model) {
         boolean flag = false;
         int result = getMapper().insert(model);
-        if(result > 0){
+        if (result > 0) {
             flag = true;
         }
         return flag;
@@ -46,14 +49,34 @@ public abstract class BaseServiceImpl implements BaseService {
     @Override
     public boolean update(BaseModel model) {
         boolean flag = false;
-        Example example = new Example(User.class);
+        Example example = new Example(model.getClass());
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("id", model.getId());
         int result = getMapper().updateByExampleSelective(model, example);
-        if(result > 0){
+        if (result > 0) {
             flag = true;
         }
         return flag;
+    }
+
+    @Override
+    public boolean delete(BaseModel model) {
+        model.setStatus(BaseStatus.DELETED.getStatus());
+        boolean flag = false;
+        Example example = new Example(model.getClass());
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("id", model.getId());
+        model.setId(null);
+        int result = getMapper().updateByExampleSelective(model, example);
+        if (result > 0) {
+            flag = true;
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean delete(List<BaseModel> models) {
+        return false;
     }
 
     /**
@@ -76,9 +99,9 @@ public abstract class BaseServiceImpl implements BaseService {
                     criteria.andEqualTo(fieldName, (Integer) fieldValue);
                 }
             }
-            if (fieldName.equals("status") && ObjectUtils.isEmpty(fieldValue)) {
-                criteria.andNotEqualTo("status", 0);
-            }
+        }
+        if (ObjectUtils.isEmpty(model.getStatus())) {
+            criteria.andNotEqualTo("status", 0);
         }
         return criteria;
     }

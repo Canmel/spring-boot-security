@@ -1,11 +1,15 @@
 package dto;
 
+import com.goshine.core.base.DemoBaseMapper;
+
 import java.util.Date;
 
-public class Role {
+public class Role extends BaseModel{
     private Integer id;
 
     private String name;
+
+    private Integer status;
 
     private String description;
 
@@ -27,6 +31,14 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getDescription() {
