@@ -1,43 +1,39 @@
 package com.goshine.web.controller;
 
+import javax.validation.Valid;
+
 import com.github.pagehelper.PageInfo;
 import com.goshine.core.base.R;
 import com.goshine.service.BaseService;
+import com.goshine.service.RoleService;
 import com.goshine.service.UserService;
 import com.goshine.web.enums.UserStatus;
+import dto.BaseModel;
+import dto.PageQuery;
+import dto.Role;
 import dto.User;
-import exceptions.UserNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import exceptions.UserNotExistException;
 
 @RestController
-@RequestMapping("/api/users")
-public class UserController extends BaseController {
+@RequestMapping("/api/roles")
+public class RoleController extends BaseController {
 
     @Autowired
-    public UserService userService;
-
-    @GetMapping("/me")
-    public Object getCurrentUser(@AuthenticationPrincipal UserDetails user) {
-        return user;
-    }
-
-    @GetMapping("/current")
-    public User getUserDetail(@AuthenticationPrincipal UserDetails user) {
-        return userService.loadUserByUserName(user.getUsername());
-    }
+    public RoleService roleService;
 
     @GetMapping
     @ResponseBody
-    public R query(User user) {
-        PageInfo pageInfo = super.query(user);
+    public R query(Role role) {
+        PageInfo pageInfo = super.query(role);
         return R.ok().page(pageInfo);
     }
 
@@ -48,7 +44,7 @@ public class UserController extends BaseController {
         user.setId(Integer.parseInt(id));
         User details = (User) super.details(user);
         if (ObjectUtils.isEmpty(details)) {
-            R.error("获取用户失败");
+            R.error("获取角色失败");
         } else {
             details.setPassword(null);
         }
@@ -66,9 +62,9 @@ public class UserController extends BaseController {
         user.setStatus(UserStatus.ACTIVE.getStatus());
         user.setPassword(encodeUserPassword(user.getPassword()));
         if (!super.create(user)) {
-            return R.error("创建用户失败！");
+            return R.error("创建角色失败！");
         }
-        return R.ok().put("msg", "创建用户成功！");
+        return R.ok().put("msg", "创建角色成功！");
     }
 
     @PutMapping("/{id:\\d+}")
@@ -78,9 +74,9 @@ public class UserController extends BaseController {
             return resp;
         }
         if (!super.update(user)) {
-            return R.error("修改用户失败");
+            return R.error("修改角色失败");
         }
-        return R.ok().msg("修改用户成功");
+        return R.ok().msg("修改角色成功");
     }
 
 
@@ -89,9 +85,9 @@ public class UserController extends BaseController {
         User user = new User();
         user.setId(id);
         if (super.delete(user)) {
-            return R.ok().msg("删除用户成功");
+            return R.ok().msg("删除角色成功");
         } else {
-            return R.error("删除用户失败");
+            return R.error("删除角色失败");
         }
     }
 
@@ -102,7 +98,7 @@ public class UserController extends BaseController {
 
     @Override
     public BaseService getService() {
-        return userService;
+        return roleService;
     }
 
     private String encodeUserPassword(String password) {

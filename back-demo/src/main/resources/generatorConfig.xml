@@ -42,22 +42,22 @@
         <javaClientGenerator targetPackage="com.goshine.mapper"
                              targetProject="src/main/java" type="XMLMAPPER"/>
 
-        <table tableName="user" domainObjectName="User">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
+        <!--<table tableName="user" domainObjectName="User">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
 
         <table tableName="role" domainObjectName="Role">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 
-        <table tableName="user_role" domainObjectName="UserRole">
-        </table>
+        <!--<table tableName="user_role" domainObjectName="UserRole">-->
+        <!--</table>-->
 
-        <table tableName="menu" domainObjectName="Menu">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
+        <!--<table tableName="menu" domainObjectName="Menu">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
 
-        <table tableName="role_menu" domainObjectName="RoleMenu">
-        </table>
+        <!--<table tableName="role_menu" domainObjectName="RoleMenu">-->
+        <!--</table>-->
     </context>
 </generatorConfiguration>

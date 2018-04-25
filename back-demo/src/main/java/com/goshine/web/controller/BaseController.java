@@ -25,6 +25,11 @@ public abstract class BaseController {
         return getService().update(model);
     }
 
+    public boolean delete(BaseModel model){
+        return getService().delete(model);
+    }
+
+
     public abstract BaseService getService();
 
 }

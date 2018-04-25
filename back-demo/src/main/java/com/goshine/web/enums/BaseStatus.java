@@ -1,21 +1,21 @@
 package com.goshine.web.enums;
 
-public enum UserStatus{
+public enum BaseStatus {
     ACTIVE("正常", 1), DELETED("删除", 0);
 
     private String name;
     private int status;
 
-    UserStatus() {
+    BaseStatus() {
     }
 
-    UserStatus(String name, int status) {
+    BaseStatus(String name, int status) {
         this.name = name;
         this.status = status;
     }
 
     public static String getName(int index) {
-        for (UserStatus c : UserStatus.values()) {
+        for (BaseStatus c : BaseStatus.values()) {
             if (c.getStatus() == index) {
                 return c.name;
             }

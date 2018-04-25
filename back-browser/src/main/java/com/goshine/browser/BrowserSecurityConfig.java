@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -35,6 +36,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -85,6 +89,11 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/anth/require", securityProperties.getBrowser().getLoginPage(), "/code/image", "/code/sms").permitAll()
                 .anyRequest()
                 .authenticated()
+                .and()
+                .logout()
+                .logoutUrl("/signOut")
+                .logoutSuccessHandler(logoutSuccessHandler)
+                .deleteCookies("JSESSIONID")
                 .and()
                 .csrf().disable()
                 .apply(smsCodeAuthenticationSecurityConfig);

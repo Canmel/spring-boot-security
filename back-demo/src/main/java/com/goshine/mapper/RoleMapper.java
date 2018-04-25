@@ -1,16 +1,13 @@
 package com.goshine.mapper;
 
+import com.goshine.core.base.DemoBaseMapper;
 import dto.Role;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
-public interface RoleMapper {
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(Role record);
-
-    Role selectByPrimaryKey(Integer id);
-
-    List<Role> selectAll();
-
-    int updateByPrimaryKey(Role record);
+@Repository
+@Mapper
+public interface RoleMapper extends DemoBaseMapper<Role>{
 }
