@@ -7,6 +7,7 @@ import com.goshine.core.base.R;
 import com.goshine.service.BaseService;
 import com.goshine.service.RoleService;
 import com.goshine.service.UserService;
+import com.goshine.web.enums.RoleStatus;
 import com.goshine.web.enums.UserStatus;
 import dto.BaseModel;
 import dto.PageQuery;
@@ -40,13 +41,11 @@ public class RoleController extends BaseController {
     @GetMapping("/{id:\\d+}")
     @ResponseBody
     public R details(@PathVariable(name = "id") String id) {
-        User user = new User();
-        user.setId(Integer.parseInt(id));
-        User details = (User) super.details(user);
+        Role role = new Role();
+        role.setId(Integer.parseInt(id));
+        Role details = (Role) super.details(role);
         if (ObjectUtils.isEmpty(details)) {
             R.error("获取角色失败");
-        } else {
-            details.setPassword(null);
         }
 
         return R.ok().model(details);
@@ -54,26 +53,25 @@ public class RoleController extends BaseController {
 
     @PostMapping
     @ResponseBody
-    public R create(@RequestBody @Valid User user, BindingResult errors) {
+    public R create(@RequestBody @Valid Role role, BindingResult errors) {
         R resp = generateErrorResp(errors);
         if (!ObjectUtils.isEmpty(resp)) {
             return resp;
         }
-        user.setStatus(UserStatus.ACTIVE.getStatus());
-        user.setPassword(encodeUserPassword(user.getPassword()));
-        if (!super.create(user)) {
+        role.setStatus(RoleStatus.ACTIVE.getStatus());
+        if (!super.create(role)) {
             return R.error("创建角色失败！");
         }
         return R.ok().put("msg", "创建角色成功！");
     }
 
     @PutMapping("/{id:\\d+}")
-    public R edit(@Valid @RequestBody User user, BindingResult errors) {
+    public R edit(@Valid @RequestBody Role role, BindingResult errors) {
         R resp = generateErrorResp(errors);
         if (!ObjectUtils.isEmpty(resp)) {
             return resp;
         }
-        if (!super.update(user)) {
+        if (!super.update(role)) {
             return R.error("修改角色失败");
         }
         return R.ok().msg("修改角色成功");
