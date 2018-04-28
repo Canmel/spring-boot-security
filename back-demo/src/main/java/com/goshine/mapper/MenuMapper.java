@@ -1,16 +1,13 @@
 package com.goshine.mapper;
 
+import com.goshine.core.base.DemoBaseMapper;
 import dto.Menu;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
-public interface MenuMapper {
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(Menu record);
-
-    Menu selectByPrimaryKey(Integer id);
-
-    List<Menu> selectAll();
-
-    int updateByPrimaryKey(Menu record);
+@Repository
+@Mapper
+public interface MenuMapper extends DemoBaseMapper<Menu>{
 }

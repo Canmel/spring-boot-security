@@ -5,14 +5,12 @@ import javax.validation.Valid;
 import com.github.pagehelper.PageInfo;
 import com.goshine.core.base.R;
 import com.goshine.service.BaseService;
+import com.goshine.service.MenuService;
 import com.goshine.service.RoleService;
 import com.goshine.service.UserService;
 import com.goshine.web.enums.RoleStatus;
 import com.goshine.web.enums.UserStatus;
-import dto.BaseModel;
-import dto.PageQuery;
-import dto.Role;
-import dto.User;
+import dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,12 +22,17 @@ import org.springframework.web.bind.annotation.*;
 
 import exceptions.UserNotExistException;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/roles")
 public class RoleController extends BaseController {
 
     @Autowired
     public RoleService roleService;
+
+    @Autowired
+    public MenuService menuService;
 
     @GetMapping
     @ResponseBody
@@ -44,10 +47,12 @@ public class RoleController extends BaseController {
         Role role = new Role();
         role.setId(Integer.parseInt(id));
         Role details = (Role) super.details(role);
+
         if (ObjectUtils.isEmpty(details)) {
             R.error("获取角色失败");
         }
-
+        List<Menu> menus = menuService.getMenusByRoleId(details.getId());
+        details.setMenus(menus);
         return R.ok().model(details);
     }
 
@@ -80,27 +85,27 @@ public class RoleController extends BaseController {
 
     @DeleteMapping("/{id:\\d+}")
     public R delete(@PathVariable Integer id) {
-        User user = new User();
-        user.setId(id);
-        if (super.delete(user)) {
+        Role role = new Role();
+        role.setId(id);
+        if (super.delete(role)) {
             return R.ok().msg("删除角色成功");
         } else {
             return R.error("删除角色失败");
         }
     }
 
-    @GetMapping("/error/{id:\\d+}")
-    public void toError(@PathVariable String id) {
-        throw new UserNotExistException(id);
+    @PostMapping("/menus")
+    public R uodateMenus(@RequestBody Role role) {
+        if(roleService.updateMemus(role.getId(), role.getMenuIds())){
+            return  R.ok().msg("更新角色持有菜单成功！");
+        }
+        return R.error().msg("");
     }
+
 
     @Override
     public BaseService getService() {
         return roleService;
-    }
-
-    private String encodeUserPassword(String password) {
-        return new BCryptPasswordEncoder().encode(password);
     }
 
     public R generateErrorResp(BindingResult errors) {

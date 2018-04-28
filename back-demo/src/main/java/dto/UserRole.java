@@ -1,6 +1,6 @@
 package dto;
 
-public class UserRole {
+public class UserRole{
     private Integer userId;
 
     private Integer roleId;

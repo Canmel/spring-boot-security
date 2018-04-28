@@ -1,21 +1,23 @@
 package dto;
 
-public class Menu {
-    private Integer id;
+import java.util.Date;
 
+public class Menu extends BaseModel{
     private String name;
 
     private String target;
 
     private String description;
 
-    public Integer getId() {
-        return id;
-    }
+    private Integer level;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private Integer parentId;
+
+    private Integer iconId;
+
+    private Date createdAt;
+
+    private Date updatedAt;
 
     public String getName() {
         return name;
@@ -39,5 +41,45 @@ public class Menu {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    public Integer getIconId() {
+        return iconId;
+    }
+
+    public void setIconId(Integer iconId) {
+        this.iconId = iconId;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
