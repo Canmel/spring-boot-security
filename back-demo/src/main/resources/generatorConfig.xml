@@ -46,9 +46,9 @@
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
 
-        <table tableName="role" domainObjectName="Role">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
+        <!--<table tableName="role" domainObjectName="Role">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
 
         <!--<table tableName="user_role" domainObjectName="UserRole">-->
         <!--</table>-->
@@ -57,7 +57,7 @@
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
 
-        <!--<table tableName="role_menu" domainObjectName="RoleMenu">-->
-        <!--</table>-->
+        <table tableName="role_menu" domainObjectName="RoleMenu">
+        </table>
     </context>
 </generatorConfiguration>

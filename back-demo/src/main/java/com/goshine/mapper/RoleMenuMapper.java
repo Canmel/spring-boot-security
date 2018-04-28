@@ -1,10 +1,14 @@
 package com.goshine.mapper;
 
+import com.goshine.core.base.DemoBaseMapper;
 import dto.RoleMenu;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
-public interface RoleMenuMapper {
-    int insert(RoleMenu record);
-
-    List<RoleMenu> selectAll();
+@Mapper
+@Repository
+public interface RoleMenuMapper extends DemoBaseMapper<RoleMenu> {
+    int insertBatch(List<RoleMenu> rms);
 }

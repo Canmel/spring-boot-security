@@ -23,7 +23,11 @@ public class R extends HashMap<String, Object> {
 	public static R error(String msg) {
 		return error(500, msg);
 	}
-	
+
+	public static R error(String optName ,String cName) {
+		return error(500, optName + cName + "失败！");
+	}
+
 	public static R error(int code, String msg) {
 		R r = new R();
 		r.put("code", code);
@@ -47,6 +51,11 @@ public class R extends HashMap<String, Object> {
 		return new R();
 	}
 
+	public R put(Object value) {
+		super.put("root", value);
+		return this;
+	}
+
 	public R put(String key, Object value) {
 		super.put(key, value);
 		return this;
@@ -54,6 +63,11 @@ public class R extends HashMap<String, Object> {
 
 	public R msg(String msg) {
 		super.put("msg", msg);
+		return this;
+	}
+
+	public R msg(String optName, String cName) {
+		super.put("msg", optName + cName + "成功！");
 		return this;
 	}
 
@@ -74,7 +88,7 @@ public class R extends HashMap<String, Object> {
 
 	public static R model(Object obje) {
 		R r = new R();
-		r.put("obj", obje);
+		r.put("root", obje);
 		return r;
 	}
 }

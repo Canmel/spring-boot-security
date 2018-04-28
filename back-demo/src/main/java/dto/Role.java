@@ -2,9 +2,11 @@ package dto;
 
 import com.goshine.core.base.DemoBaseMapper;
 
+import javax.persistence.Transient;
 import java.util.Date;
+import java.util.List;
 
-public class Role extends BaseModel{
+public class Role extends BaseModel {
     private Integer id;
 
     private String name;
@@ -16,6 +18,28 @@ public class Role extends BaseModel{
     private Date createdAt;
 
     private Date updatedAt;
+
+    @Transient
+    private List<Menu> menus;
+
+    @Transient
+    private List<Integer> menuIds;
+
+    public List<Integer> getMenuIds() {
+        return menuIds;
+    }
+
+    public void setMenuIds(List<Integer> menuIds) {
+        this.menuIds = menuIds;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
+    }
 
     public Integer getId() {
         return id;

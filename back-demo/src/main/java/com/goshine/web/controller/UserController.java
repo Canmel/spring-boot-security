@@ -21,6 +21,7 @@ import javax.validation.Valid;
 @RequestMapping("/api/users")
 public class UserController extends BaseController {
 
+    private final String controllerName = "User";
     @Autowired
     public UserService userService;
 
