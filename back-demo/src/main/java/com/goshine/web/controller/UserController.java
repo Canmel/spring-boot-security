@@ -3,8 +3,10 @@ package com.goshine.web.controller;
 import com.github.pagehelper.PageInfo;
 import com.goshine.core.base.R;
 import com.goshine.service.BaseService;
+import com.goshine.service.RoleService;
 import com.goshine.service.UserService;
 import com.goshine.web.enums.UserStatus;
+import dto.Role;
 import dto.User;
 import exceptions.UserNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class UserController extends BaseController {
     private final String controllerName = "User";
     @Autowired
     public UserService userService;
+
+    @Autowired
+    public RoleService roleService;
 
     @GetMapping("/me")
     public Object getCurrentUser(@AuthenticationPrincipal UserDetails user) {
@@ -53,7 +58,7 @@ public class UserController extends BaseController {
         } else {
             details.setPassword(null);
         }
-
+        details.setRoles(roleService.getRoleByUserId(Integer.parseInt(id)));
         return R.ok().model(details);
     }
 
@@ -94,6 +99,14 @@ public class UserController extends BaseController {
         } else {
             return R.error("删除用户失败");
         }
+    }
+
+    @PostMapping("/roles")
+    public R uodateRoles(@RequestBody User user) {
+        if(userService.updateRoles(user.getId(), user.getRoleIds())){
+            return  R.ok().msg("更新用户持有角色成功！");
+        }
+        return R.error().msg("");
     }
 
     @GetMapping("/error/{id:\\d+}")

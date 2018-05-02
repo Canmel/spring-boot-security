@@ -102,6 +102,15 @@ public class RoleController extends BaseController {
         return R.error().msg("");
     }
 
+    @GetMapping("/all")
+    public R all(){
+        List roles = roleService.all();
+        if(ObjectUtils.isEmpty(roles)){
+            return R.error("获取角色失败");
+        }
+        return R.ok().model(roles);
+    }
+
 
     @Override
     public BaseService getService() {

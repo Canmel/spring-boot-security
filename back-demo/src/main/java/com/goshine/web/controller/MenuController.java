@@ -126,16 +126,10 @@ public class MenuController extends BaseController {
         return menuService;
     }
 
-    private String encodeUserPassword(String password) {
-        return new BCryptPasswordEncoder().encode(password);
-    }
-
-    public R generateErrorResp(BindingResult errors) {
+    private R generateErrorResp(BindingResult errors) {
         if (errors.hasErrors()) {
             StringBuffer msg = new StringBuffer();
-            errors.getAllErrors().stream().forEach(error -> {
-                msg.append(error.getDefaultMessage());
-            });
+            errors.getAllErrors().forEach(error -> msg.append(error.getDefaultMessage()));
             return R.error(msg.toString());
         } else {
             return null;

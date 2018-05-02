@@ -4,12 +4,14 @@ import com.goshine.core.base.DemoBaseMapper;
 import com.goshine.mapper.RoleMapper;
 import com.goshine.mapper.RoleMenuMapper;
 import com.goshine.mapper.UserMapper;
+import com.goshine.mapper.UserRoleMapper;
 import com.goshine.service.RoleService;
 import com.goshine.service.UserService;
-import dto.RoleMenu;
-import dto.User;
+import com.goshine.web.enums.MenuStatus;
+import dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
@@ -24,9 +26,45 @@ public class RoleServiceImpl extends BaseServiceImpl implements RoleService {
     @Autowired
     public RoleMenuMapper roleMenuMapper;
 
+    @Autowired
+    public UserRoleMapper userRoleMapper;
+
     @Override
     public boolean updateMemus(int roleId, List<Integer> ids) {
         return deleteRelationRoleMenu(roleId) && addRelationRoleMenu(roleId, ids);
+    }
+
+    @Override
+    public List<Role> all() {
+        Example example = new Example(Role.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("status", MenuStatus.ACTIVE.getStatus());
+        return getMapper().selectByExample(example);
+    }
+
+    @Override
+    public List<Role> getRoleByUserId(int id) {
+        List<UserRole> rms = getUserRolesByUserId(id);
+        if (rms.size() == 0 ){
+            return new ArrayList<Role>();
+        }
+        List<Integer> ids = new ArrayList<>();
+        for (UserRole rm : rms) {
+            if (!ObjectUtils.isEmpty(rm.getRoleId())) {
+                ids.add(rm.getRoleId());
+            }
+        }
+        Example example = new Example(Menu.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andIn("id", ids);
+        return getMapper().selectByExample(example);
+    }
+
+    private List<UserRole> getUserRolesByUserId(int id) {
+        Example example = new Example(UserRole.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userId", id);
+        return userRoleMapper.selectByExample(example);
     }
 
     private boolean deleteRelationRoleMenu(int roleId) {
