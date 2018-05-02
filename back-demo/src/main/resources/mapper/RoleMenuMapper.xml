@@ -7,5 +7,4 @@
             (#{item.roleId},#{item.menuId})
         </foreach>
     </insert>
-
 </mapper>

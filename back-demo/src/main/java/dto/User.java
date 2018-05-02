@@ -1,6 +1,8 @@
 package dto;
 
+import javax.persistence.Transient;
 import java.util.Date;
+import java.util.List;
 
 public class User extends BaseModel {
 
@@ -19,6 +21,28 @@ public class User extends BaseModel {
     private Date createdAt;
 
     private Date updatedAt;
+
+    @Transient
+    private List<Role> roles;
+
+    @Transient
+    private List<Integer> roleIds;
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public List<Integer> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<Integer> roleIds) {
+        this.roleIds = roleIds;
+    }
 
     public String getNickname() {
         return nickname;
