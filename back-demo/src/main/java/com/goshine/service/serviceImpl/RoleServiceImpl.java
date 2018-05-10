@@ -11,6 +11,7 @@ import com.goshine.web.enums.MenuStatus;
 import dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import tk.mybatis.mapper.entity.Example;
 
@@ -45,7 +46,7 @@ public class RoleServiceImpl extends BaseServiceImpl implements RoleService {
     @Override
     public List<Role> getRoleByUserId(int id) {
         List<UserRole> rms = getUserRolesByUserId(id);
-        if (rms.size() == 0 ){
+        if (CollectionUtils.isEmpty(rms)) {
             return new ArrayList<Role>();
         }
         List<Integer> ids = new ArrayList<>();
