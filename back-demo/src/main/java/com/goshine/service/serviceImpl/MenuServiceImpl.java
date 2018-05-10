@@ -8,12 +8,16 @@ import com.goshine.service.RoleService;
 import com.goshine.web.enums.MenuLevel;
 import dto.Menu;
 import dto.RoleMenu;
+import org.apache.commons.collections.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.rmi.CORBA.Util;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -51,7 +55,8 @@ public class MenuServiceImpl extends BaseServiceImpl implements MenuService {
     @Override
     public List<Menu> getMenusByRoleId(int id) {
         List<RoleMenu> rms = getRoleMenusByRoleId(id);
-        if (rms.size() == 0 ){
+
+        if (CollectionUtils.isEmpty(rms)) {
             return new ArrayList<Menu>();
         }
         List<Integer> ids = new ArrayList<>();
