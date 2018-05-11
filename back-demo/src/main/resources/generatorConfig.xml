@@ -57,7 +57,23 @@
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
 
-        <table tableName="role_menu" domainObjectName="RoleMenu">
+        <!--<table tableName="role_menu" domainObjectName="RoleMenu">-->
+        <!--</table>-->
+
+        <!--<table tableName="work_flow" domainObjectName="WorkFlow">-->
+        <!--</table>-->
+
+        <!--<table tableName="flow" domainObjectName="Flow">-->
+        <!--</table>-->
+
+
+        <!--<table tableName="flow_rect" domainObjectName="FlowRect">-->
+        <!--</table>-->
+
+        <!--<table tableName="flow_path" domainObjectName="FlowPath">-->
+        <!--</table>-->
+
+        <table tableName="reimbursement" domainObjectName="Reimbursement">
         </table>
     </context>
 </generatorConfiguration>
