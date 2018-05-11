@@ -126,13 +126,4 @@ public class MenuController extends BaseController {
         return menuService;
     }
 
-    private R generateErrorResp(BindingResult errors) {
-        if (errors.hasErrors()) {
-            StringBuffer msg = new StringBuffer();
-            errors.getAllErrors().forEach(error -> msg.append(error.getDefaultMessage()));
-            return R.error(msg.toString());
-        } else {
-            return null;
-        }
-    }
 }
